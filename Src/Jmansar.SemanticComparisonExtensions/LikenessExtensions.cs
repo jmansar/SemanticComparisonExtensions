@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -98,6 +99,36 @@ namespace Jmansar.SemanticComparisonExtensions
 
                     return innerLikeness.Equals(destValCast);
                 });
+        }
+
+
+        public static Likeness<TSource, TDestination> WithCollectionSequenceEquals<TSource, TDestination>(this Likeness<TSource, TDestination> likeness,
+         Expression<Func<TDestination, IEnumerable>> propertyPicker,
+         Expression<Func<TSource, IEnumerable>> sourcePropertyPicker)
+        {
+            return likeness.With(propertyPicker)
+                .EqualsWhen((s, d) =>
+                {
+                    var sourceVal = sourcePropertyPicker.Compile().Invoke(s);
+                    var destVal = propertyPicker.Compile().Invoke(d);
+                    if (sourceVal == null && destVal == null)
+                    {
+                        return true;
+                    }
+
+                    if (sourceVal == null || destVal == null)
+                    {
+                        return false;
+                    }
+
+                    return sourceVal.Cast<object>().SequenceEqual(destVal.Cast<object>());
+                });
+        }
+
+        public static Likeness<TType, TType> WithCollectionSequenceEquals<TType>(this Likeness<TType, TType> likeness,
+         Expression<Func<TType, IEnumerable>> propertyPicker)
+        {
+            return likeness.WithCollectionSequenceEquals(propertyPicker, propertyPicker);
         }
     }
 }
