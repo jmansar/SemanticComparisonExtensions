@@ -55,11 +55,17 @@
     <Compile Include="..\Jmansar.SemanticComparisonExtensions\Properties\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Builder\AnotherTypeWithAnotherInnerCollectionBuilder.cs" />
     <Compile Include="Builder\AnotherTypeWithInnerCollectionBuilder.cs" />
     <Compile Include="Builder\TypeWithInnerCollectionBuilder.cs" />
+    <Compile Include="TestData\AnotherObjectWithSingleStringProperty.cs" />
+    <Compile Include="TestData\AnotherTypeWithAnotherInnerCollection.cs" />
     <Compile Include="TestData\AnotherTypeWithInnerCollection.cs" />
+    <Compile Include="TestData\AnotherObjectWithAnotherIntPropertyDerived.cs" />
+    <Compile Include="TestData\AnotherObjectWithAnotherStringPropertiesDerived.cs" />
     <Compile Include="TestData\TypeWithInnerCollection.cs" />
-    <Compile Include="UserInnerLikenessTests.cs" />
+    <Compile Include="WithCollectionInnerLikenessTests.cs" />
+    <Compile Include="WithInnerLikenessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestData\ObjectWithAnotherIntPropertyDerived.cs" />
     <Compile Include="TestData\ObjectWithAnotherStringPropertiesDerived.cs" />

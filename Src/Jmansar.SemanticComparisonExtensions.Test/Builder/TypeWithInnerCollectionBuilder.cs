@@ -18,6 +18,22 @@ namespace Jmansar.SemanticComparisonExtensions.Test.Builder
             return this;
         }
 
+        public TypeWithInnerCollectionBuilder WithInnerCollectionItemValue(string stringValue)
+        {
+            return WithInnerCollectionItem(new ObjectWithSingleStringProperty()
+            {
+                StringTypeProperty = stringValue
+            });
+        }
+
+        public TypeWithInnerCollectionBuilder WithInnerCollectionItemTypeOfObjectWithInt(string stringValue, int intValue)
+        {
+            return WithInnerCollectionItem(new ObjectWithAnotherIntPropertyDerived
+            {
+                StringTypeProperty = stringValue,
+                IntTypePropertyFromDerivedClass = intValue
+            });
+        }
 
         public TypeWithInnerCollectionBuilder WithInnerCollectionItemsCount(int count)
         {

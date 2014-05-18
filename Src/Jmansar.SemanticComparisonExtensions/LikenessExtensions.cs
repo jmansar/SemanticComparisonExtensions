@@ -12,52 +12,32 @@ namespace Jmansar.SemanticComparisonExtensions
 {
     public static class LikenessExtensions
     {
-
-        public static Likeness<TType, TType> WithInnerLikeness<TType, TProperty>(this Likeness<TType, TType> likeness,
-            Expression<Func<TType, TProperty>> propertyPicker,
-            Func<Likeness<TProperty, TProperty>, Likeness<TProperty, TProperty>>
-                likenessDefFunc = null)
-            where TProperty : class
-        {
-            return likeness.WithInnerLikeness(propertyPicker, propertyPicker, likenessDefFunc);
-        }
-
-
-        public static Likeness<TSource, TDestination> WithInnerLikeness<TSource, TDestination, TSourceProperty, TDestinationProperty>(
-            this Likeness<TSource, TDestination> likeness,
-            Expression<Func<TDestination, TDestinationProperty>> propertyPicker,
-            Expression<Func<TSource, TSourceProperty>> sourcePropertyPicker,
-            Func<Likeness<TSourceProperty, TDestinationProperty>, Likeness<TSourceProperty, TDestinationProperty>>
-                likenessDefFunc = null) 
-            where TSourceProperty: class 
-            where TDestinationProperty: class
+        public static Likeness<TSource, TDestination> WithInnerLikeness
+            <TSource, TDestination, TSourceProperty, TDestinationProperty>
+            (
+                this Likeness<TSource, TDestination> likeness,
+                Expression<Func<TDestination, TDestinationProperty>> propertyPicker,
+                Expression<Func<TSource, TSourceProperty>> sourcePropertyPicker,
+                Func<Likeness<TSourceProperty, TDestinationProperty>, Likeness<TSourceProperty, TDestinationProperty>> likenessDefFunc = null
+            )
+            where TSourceProperty : class
+            where TDestinationProperty : class
         {
             return WithInnerSpecificLikeness(likeness, propertyPicker, sourcePropertyPicker, likenessDefFunc);
         }
 
-        public static Likeness<TType, TType> WithInnerSpecificLikeness<TType, TProperty, TPropertySubType>(
-                this Likeness<TType, TType> likeness, Expression<Func<TType, TProperty>> propertyPicker, 
-                Func<Likeness<TPropertySubType, TPropertySubType>, Likeness<TPropertySubType, TPropertySubType>> likenessDefFunc)
-            where TProperty : class
-            where TPropertySubType : class, TProperty
-
-        {
-            return WithInnerSpecificLikeness(likeness, propertyPicker, propertyPicker, likenessDefFunc);
-        }
-
-
-        public static Likeness<TSource, TDestination> WithInnerSpecificLikeness<TSource, TDestination, TSourceProperty, TDestinationProperty,
-            TSourcePropertySubType, TDestinationPropertySubType>(
-            this Likeness<TSource, TDestination> likeness,
-            Expression<Func<TDestination, TDestinationProperty>> propertyPicker,
-            Expression<Func<TSource, TSourceProperty>> sourcePropertyPicker,
-            Func<Likeness<TSourcePropertySubType, TDestinationPropertySubType>, Likeness<TSourcePropertySubType, TDestinationPropertySubType>>
-                likenessDefFunc)
+        public static Likeness<TSource, TDestination> WithInnerSpecificLikeness
+            <TSource, TDestination, TSourceProperty, TDestinationProperty,TSourcePropertySubType, TDestinationPropertySubType>
+            (
+                this Likeness<TSource, TDestination> likeness,
+                Expression<Func<TDestination, TDestinationProperty>> propertyPicker,
+                Expression<Func<TSource, TSourceProperty>> sourcePropertyPicker,
+                Func<Likeness<TSourcePropertySubType, TDestinationPropertySubType>, Likeness<TSourcePropertySubType, TDestinationPropertySubType>> likenessDefFunc
+            )
             where TSourceProperty : class
             where TDestinationProperty : class
             where TSourcePropertySubType : class, TSourceProperty
             where TDestinationPropertySubType : class, TDestinationProperty
-
         {
             return likeness.With(propertyPicker)
                 .EqualsWhen((s, d) =>
@@ -101,10 +81,12 @@ namespace Jmansar.SemanticComparisonExtensions
                 });
         }
 
-
-        public static Likeness<TSource, TDestination> WithCollectionSequenceEquals<TSource, TDestination>(this Likeness<TSource, TDestination> likeness,
-         Expression<Func<TDestination, IEnumerable>> propertyPicker,
-         Expression<Func<TSource, IEnumerable>> sourcePropertyPicker)
+        public static Likeness<TSource, TDestination> WithCollectionSequenceEquals<TSource, TDestination>
+            (
+                this Likeness<TSource, TDestination> likeness,
+                Expression<Func<TDestination, IEnumerable>> propertyPicker,
+                Expression<Func<TSource, IEnumerable>> sourcePropertyPicker
+            )
         {
             return likeness.With(propertyPicker)
                 .EqualsWhen((s, d) =>
@@ -129,6 +111,104 @@ namespace Jmansar.SemanticComparisonExtensions
          Expression<Func<TType, IEnumerable>> propertyPicker)
         {
             return likeness.WithCollectionSequenceEquals(propertyPicker, propertyPicker);
+        }
+
+        public static Likeness<TSource, TDestination> WithCollectionInnerLikeness
+            <TSource, TDestination, TSourceProperty, TDestinationProperty>
+            (
+                this Likeness<TSource, TDestination> likeness,
+                Expression<Func<TDestination, IEnumerable<TDestinationProperty>>> propertyPicker,
+                Expression<Func<TSource, IEnumerable<TSourceProperty>>> sourcePropertyPicker,
+                Func<Likeness<TSourceProperty, TDestinationProperty>, Likeness<TSourceProperty, TDestinationProperty>>
+                    likenessDefFunc = null
+            )
+            where TSourceProperty : class
+            where TDestinationProperty : class
+        {
+            return likeness.WithCollectionInnerSpecificLikeness(propertyPicker, sourcePropertyPicker, likenessDefFunc);
+        }
+
+        public static Likeness<TSource, TDestination> WithCollectionInnerSpecificLikeness
+            <TSource, TDestination, TSourceProperty, TDestinationProperty, TSourcePropertySubType, TDestinationPropertySubType>
+            (
+                this Likeness<TSource, TDestination> likeness,
+                Expression<Func<TDestination, IEnumerable<TDestinationProperty>>> propertyPicker,
+                Expression<Func<TSource, IEnumerable<TSourceProperty>>> sourcePropertyPicker,
+                Func<Likeness<TSourcePropertySubType, TDestinationPropertySubType>, Likeness<TSourcePropertySubType, TDestinationPropertySubType>> likenessDefFunc = null
+            )
+            where TSourcePropertySubType : class
+            where TDestinationPropertySubType : class
+        {
+            return likeness.With(propertyPicker)
+                .EqualsWhen((s, d) =>
+                {
+                    var sourceCollection = sourcePropertyPicker.Compile().Invoke(s);
+                    var destCollection = propertyPicker.Compile().Invoke(d);
+                    if (sourceCollection == null && destCollection == null)
+                    {
+                        return true;
+                    }
+
+                    if (sourceCollection == null || destCollection == null)
+                    {
+                        return false;
+                    }
+
+                    var sourceList = sourceCollection.ToList();
+                    var destList = destCollection.ToList();
+
+                    if (sourceList.Count() != destList.Count())
+                    {
+                        return false;
+                    }
+
+
+                    for (var i = 0; i < sourceList.Count(); i++)
+                    {
+                        var sourceVal = sourceList[i];
+                        var destVal = destList[i];
+
+                        if (sourceVal == null && destVal == null)
+                        {
+                            continue;
+                        }
+
+                        if (sourceVal == null || destVal == null)
+                        {
+                            return false;
+                        }
+
+                        var sourceValCast = sourceVal as TSourcePropertySubType;
+                        if (sourceValCast == null)
+                        {
+                            throw new ArgumentException(
+                                String.Format("Source collection contains item of type '{1}', cannot cast to '{0}'",
+                                    typeof(TSourcePropertySubType).FullName, sourceVal.GetType().FullName));
+                        }
+
+                        var destValCast = destVal as TDestinationPropertySubType;
+                        if (destValCast == null)
+                        {
+                            // destination value has different type than destination type of inner likeness passed,
+                            // so it is not equal
+                            return false;
+                        }
+
+                        var innerLikeness =
+                                sourceValCast.AsSource().OfLikeness<TDestinationPropertySubType>();
+
+                        if (likenessDefFunc != null)
+                        {
+                            innerLikeness = likenessDefFunc.Invoke(innerLikeness);
+                        }
+
+                        if (!innerLikeness.Equals(destValCast))
+                            return false;
+
+                    }
+
+                    return true;
+                });
         }
     }
 }
