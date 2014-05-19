@@ -74,8 +74,52 @@ invoice.AsSource().OfLikeness<InvoiceDto>()
         .ShouldEqual(invoiceDto);
 
 ```
+Naturally you can invoke those extension methods on the inner likeness if you need to compare multi level object graph.
 
 
+#### Comparing inner collection items using default equality.
 
+```csharp
+public class Parent
+{
+    public IEnumerable<int> Numbers { get; set; } 
+}
+```
+
+The code below will cause Numbers collection to be compared item by item using default equality (Equals method).
+
+```csharp
+value.AsSource().OfLikeness<Root>()
+        .WithCollectionSequenceEquals(r => r.Numbers)
+        .ShouldEqual(other);
+```
+
+#### Comparing inner items using inner likeness for derived types.
+Sometimes the class definition contains inner properties that are base types. By default WithInnerLikeness and WithCollectionInnerLikeness methods infer likeness generic type parameters from the property picker lambda expression. So, if you assign objects that inherit from the base class defined in the parent class definition the constructed likeness will be base class likeness, that doesn't include fields from the derived class.  
+
+To compare objects using likeness that operates on derived classes you need to specify those derived classes explicitly. There are separate versions of the extension methods for that purpose: WithInnerSpecificLikeness, WithCollectionInnerSpecificLikeness.
+
+```csharp
+public abstract class InnerBase
+{
+    
+}
+
+public class Inner : InnerBase
+{
+    public string Text { get; set; }
+}
+
+public class Parent
+{
+    public InnerBase Inner { get; set; }
+}
+```
+
+```csharp
+parent.AsSource().OfLikeness<Parent>()
+        .WithInnerSpecificLikeness(t => t.Inner, s => s.Inner, (Likeness<Inner, Inner> likeness) => likeness)
+        .ShouldEqual(other);
+```
 
 [SemanticComparison]:http://www.nuget.org/packages/SemanticComparison
