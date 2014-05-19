@@ -250,7 +250,7 @@ namespace Jmansar.SemanticComparisonExtensions.Test
                 .Equals(other));
 
             // verify
-            Assert.That(action, Throws.ArgumentException.And.Message.Contains("Source property value is type of 'Jmansar.SemanticComparisonExtensions.Test.TestData.ObjectWithSingleStringProperty', cannot cast to 'Jmansar.SemanticComparisonExtensions.Test.TestData.ObjectWithAnotherStringPropertiesDerived'"));
+            Assert.That(action, Throws.ArgumentException.And.Message.Contains("Source value is type of 'Jmansar.SemanticComparisonExtensions.Test.TestData.ObjectWithSingleStringProperty', cannot cast to 'Jmansar.SemanticComparisonExtensions.Test.TestData.ObjectWithAnotherStringPropertiesDerived'"));
         }
 
     }
