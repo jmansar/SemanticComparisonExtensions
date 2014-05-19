@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompareUtils.cs" />
+    <Compile Include="Diagnostics\DefaultDiagnosticsWriter.cs" />
+    <Compile Include="Diagnostics\DiagnosticsWriterLocator.cs" />
+    <Compile Include="Diagnostics\IDiagnosticsWriter.cs" />
     <Compile Include="ExpressionUtils.cs" />
     <Compile Include="WithCollectionInnerLikenessExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

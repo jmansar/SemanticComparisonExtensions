@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Jmansar.SemanticComparisonExtensions.Diagnostics;
 using Ploeh.SemanticComparison;
 using Ploeh.SemanticComparison.Fluent;
 
@@ -43,6 +44,8 @@ namespace Jmansar.SemanticComparisonExtensions
             return likeness.With(propertyPicker)
                 .EqualsWhen((s, d) =>
                 {
+                    DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage(String.Format("Comparing inner collections using likeness. Source: {0} Destination: {1}.", sourcePropertyPicker, propertyPicker));
+                    
                     var sourceCollection = ExpressionUtils.GetValue(sourcePropertyPicker, s);
                     var destCollection = ExpressionUtils.GetValue(propertyPicker, d);
 

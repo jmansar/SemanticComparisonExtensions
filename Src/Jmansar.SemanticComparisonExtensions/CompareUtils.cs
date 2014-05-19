@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Jmansar.SemanticComparisonExtensions.Diagnostics;
 using Ploeh.SemanticComparison;
 using Ploeh.SemanticComparison.Fluent;
 
@@ -25,11 +26,13 @@ namespace Jmansar.SemanticComparisonExtensions
         {
             if (CheckIfBothNulls(sourceVal, destVal))
             {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("Source and destination values are both null. Return value: equal.");
                 return true;
             }
 
             if (CheckIfAtleastOneIsNull(sourceVal, destVal))
             {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("One of the values is null other is not null. Return value: not equal.");
                 return false;
             }
 
@@ -45,8 +48,7 @@ namespace Jmansar.SemanticComparisonExtensions
             var destValCast = destVal as TDestinationPropertySubType;
             if (destValCast == null)
             {
-                // destination value has different type than destination type of inner likeness passed,
-                // so it is not equal
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("Destination value has different type than destination type of inner likeness passed. Return value: not equal.");
                 return false;
             }
 
@@ -56,8 +58,9 @@ namespace Jmansar.SemanticComparisonExtensions
                 innerLikeness = likenessDefFunc.Invoke(innerLikeness);
             }
 
-            return innerLikeness.Equals(destValCast);
+            return EqualsWithDiagnostics(innerLikeness, destValCast);
         }
+
 
         internal static bool CompareCollectionsUsingLikeness
             <TSourceProperty, TDestinationProperty, TSourcePropertySubType, TDestinationPropertySubType>
@@ -73,11 +76,13 @@ namespace Jmansar.SemanticComparisonExtensions
         {
             if (CheckIfBothNulls(sourceCollection, destCollection))
             {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("Source and destination values are both null. Return value: equal.");
                 return true;
             }
 
             if (CheckIfAtleastOneIsNull(sourceCollection, destCollection))
             {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("One of the values is null other is not null. Return value: not equal.");
                 return false;
             }
 
@@ -86,19 +91,21 @@ namespace Jmansar.SemanticComparisonExtensions
 
             if (!CheckIfHaveSameNumberOfItems(sourceList, destList))
             {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("Source and destination collections have different number of items. Return value: not equal.");
                 return false;
             }
 
+            var result = true;
             for (var i = 0; i < sourceList.Count(); i++)
             {
                 var sourceVal = sourceList[i];
                 var destVal = destList[i];
 
-                if (!CompareUsingLikeness(likenessDefFunc, sourceVal, destVal))
-                    return false;
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage(String.Format("Comparing collections. Item index: {0}", i));
+                result &= CompareUsingLikeness(likenessDefFunc, sourceVal, destVal);
             }
 
-            return true;
+            return result;
         }
 
         internal static bool CheckIfHaveSameNumberOfItems(ICollection sourceList, ICollection destList)
@@ -121,15 +128,44 @@ namespace Jmansar.SemanticComparisonExtensions
         {
             if (CheckIfBothNulls(sourceVal, destVal))
             {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("Source and destination values are both null. Return value: equal.");
                 return true;
             }
 
             if (CheckIfAtleastOneIsNull(sourceVal, destVal))
             {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("One of the values is null other is not null. Return value: not equal.");
                 return false;
             }
 
-            return sourceVal.Cast<object>().SequenceEqual(destVal.Cast<object>());
+            var result = sourceVal.Cast<object>().SequenceEqual(destVal.Cast<object>());
+            if (result)
+            {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("Collections are equal. Return value: equal.");
+            }
+            else
+            {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("Collections are not equal. Return value: not equal.");
+            }
+
+            return result;
+        }
+
+        private static bool EqualsWithDiagnostics<TSource, TDestination>(Likeness<TSource, TDestination> likeness, TDestination value)
+        {
+
+            try
+            {
+                likeness.ShouldEqual(value);
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage("The source and destination values are equal.");
+
+                return true;
+            }
+            catch (LikenessException ex)
+            {
+                DiagnosticsWriterLocator.DiagnosticsWriter.WriteMessage(String.Format("The source and destination values are not equal. Details: {0}", ex.Message));
+                return false;
+            }
         }
     }
 }
