@@ -6,6 +6,9 @@
 SemanticComparisonExtensions is a .NET library that make it easier to compare object hierarchies using [SemanticComparison]. The library provides set of extensions methods for the Likeness type that can configure the likeness to operate on inner properties and collections.
 
 
+## Donwload
+The nuget package will be available soon in the nuget.org feed.
+
 ## Usage
 
 Let's say the Invoice and Invoice dto object hierarchies need to be compared in the verification stage of the unit test. 
@@ -61,7 +64,7 @@ invoice.AsSource().OfLikeness<InvoiceDto>()
         .ShouldEqual(invoiceDto);
 ```
 
-With the WithInnerLikeness and WithCollectionInnerLikeness methods you can configure inner likeness for the property or collection items that should be used in the comparison process. If you do need to override default members evaluators you can omit the third parameter (as in the example above).
+With the **WithInnerLikeness** and **WithCollectionInnerLikeness** methods you can configure inner likeness for the property or collection items that should be used in the comparison process. If you do need to override default members evaluators you can omit the third parameter (as in the example above).
 
 
 Example with the custom overrides:
@@ -97,7 +100,7 @@ value.AsSource().OfLikeness<Root>()
 #### Comparing inner items using inner likeness for derived types.
 Sometimes the class definition contains inner properties that are base types. By default WithInnerLikeness and WithCollectionInnerLikeness methods infer likeness generic type parameters from the property picker lambda expression. So, if you assign objects that inherit from the base class defined in the parent class definition the constructed likeness will be base class likeness, that doesn't include fields from the derived class.  
 
-To compare objects using likeness that operates on derived classes you need to specify those derived classes explicitly. There are separate versions of the extension methods for that purpose: WithInnerSpecificLikeness, WithCollectionInnerSpecificLikeness.
+To compare objects using likeness that operates on derived classes you need to specify those derived classes explicitly. There are separate versions of the extension methods for that purpose: **WithInnerSpecificLikeness**, **WithCollectionInnerSpecificLikeness**.
 
 ```csharp
 public abstract class InnerBase
@@ -121,5 +124,9 @@ parent.AsSource().OfLikeness<Parent>()
         .WithInnerSpecificLikeness(t => t.Inner, s => s.Inner, (Likeness<Inner, Inner> likeness) => likeness)
         .ShouldEqual(other);
 ```
+
+## Additional features
+### Logging
+The extensions methods provide diagnostic messages that are meant to help identify the exact item that is equal/not equal in the object graph. By default the logging is performed to the debug output. However, you can provide your own implementation of the message writer by implementing **IDiagnosticsWriter** interface and assigning it to the **DiagnosticsWriterLocator.DiagnosticsWriter**.
 
 [SemanticComparison]:http://www.nuget.org/packages/SemanticComparison
