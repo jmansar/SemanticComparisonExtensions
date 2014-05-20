@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+    <metadata>
+        <id>SemanticComparisonExtensions</id>
+        <version>0.1.0-pre1</version>
+        <title>SemanticComparisonExtensions</title>
+        <authors>Jerzy Mansarliński</authors>
+        <owners>Jerzy Mansarliński</owners>
+        <description>SemanticComparisonExtensions is a .NET library that make it easier to compare object hierarchies using SemanticComparison. The library provides set of extensions methods for the Likeness type that can configure the likeness to operate on inner properties and collections.</description>
+        <projectUrl>https://github.com/jmansar/SemanticComparisonExtensions</projectUrl>
+        <licenseUrl>https://github.com/jmansar/SemanticComparisonExtensions/blob/master/LICENSE</licenseUrl>
+        <language>en-US</language>
+		
+		<dependencies>
+		  <dependency id="SemanticComparison" version="3.18" />
+		</dependencies>
+		
+    </metadata>
+
+    <files>
+        <file src="Jmansar.SemanticComparisonExtensions.dll" target="lib\net40" />
+        <file src="Jmansar.SemanticComparisonExtensions.pdb" target="lib\net40" />
+    </files>
+</package>

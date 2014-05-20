@@ -10,7 +10,7 @@ namespace Jmansar.SemanticComparisonExtensions.Diagnostics
     {
         public void WriteMessage(string message)
         {
-            Debug.WriteLine(message);
+            Trace.WriteLine(message);
         }
     }
 }
