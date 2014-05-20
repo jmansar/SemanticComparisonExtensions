@@ -7,7 +7,9 @@ SemanticComparisonExtensions is a .NET library that make it easier to compare ob
 
 
 ## Donwload
-The nuget package will be available soon in the nuget.org feed.
+The nuget package is available in the nuget.org feed.
+
+[0.1.0-pre1](https://www.nuget.org/packages/SemanticComparisonExtensions/0.1.0-pre1)
 
 ## Usage
 
@@ -127,6 +129,6 @@ parent.AsSource().OfLikeness<Parent>()
 
 ## Additional features
 ### Logging
-The extensions methods provide diagnostic messages that are meant to help identify the exact item that is equal/not equal in the object graph. By default the logging is performed to the debug output. However, you can provide your own implementation of the message writer by implementing **IDiagnosticsWriter** interface and assigning it to the **DiagnosticsWriterLocator.DiagnosticsWriter**.
+The extensions methods provide diagnostic messages that are meant to help identify the exact item that is equal/not equal in the object graph. By default the logging is performed to the trace output. However, you can provide your own implementation of the message writer by implementing **IDiagnosticsWriter** interface and assigning it to the **DiagnosticsWriterLocator.DiagnosticsWriter**.
 
 [SemanticComparison]:http://www.nuget.org/packages/SemanticComparison
