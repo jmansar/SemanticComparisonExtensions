@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>SemanticComparisonExtensions</id>
-        <version>0.1.0-pre1</version>
+        <version>0.1.0</version>
         <title>SemanticComparisonExtensions</title>
         <authors>Jerzy Mansarliński</authors>
         <owners>Jerzy Mansarliński</owners>
@@ -10,15 +10,16 @@
         <projectUrl>https://github.com/jmansar/SemanticComparisonExtensions</projectUrl>
         <licenseUrl>https://github.com/jmansar/SemanticComparisonExtensions/blob/master/LICENSE</licenseUrl>
         <language>en-US</language>
-		
-		<dependencies>
-		  <dependency id="SemanticComparison" version="3.18" />
-		</dependencies>
-		
+        
+        <dependencies>
+          <dependency id="SemanticComparison" version="3.18" />
+        </dependencies>
+        
     </metadata>
 
     <files>
         <file src="Jmansar.SemanticComparisonExtensions.dll" target="lib\net40" />
         <file src="Jmansar.SemanticComparisonExtensions.pdb" target="lib\net40" />
+        <file src="install.ps1" target="tools" />
     </files>
 </package>
