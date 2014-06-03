@@ -6,11 +6,10 @@
 SemanticComparisonExtensions is a .NET library that make it easier to compare object hierarchies using [SemanticComparison]. The library provides set of extensions methods for the Likeness type that can configure the likeness to operate on inner properties and collections.
 
 
-## Donwload
+## Download
 The nuget package is available in the nuget.org feed.
 
-[0.1.0-pre1](https://www.nuget.org/packages/SemanticComparisonExtensions/0.1.0-pre1)
-
+https://www.nuget.org/packages/SemanticComparisonExtensions
 ## Usage
 
 Let's say the Invoice and Invoice dto object hierarchies need to be compared in the verification stage of the unit test. 
