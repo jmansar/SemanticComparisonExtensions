@@ -57,7 +57,12 @@
     </Compile>
     <Compile Include="Builder\AnotherTypeWithAnotherInnerCollectionBuilder.cs" />
     <Compile Include="Builder\AnotherTypeWithInnerCollectionBuilder.cs" />
+    <Compile Include="Builder\AnotherObjectWithSingleStringPropertyBuilder.cs" />
+    <Compile Include="Builder\ObjectWithAnotherIntPropertyDerivedBuilder.cs" />
+    <Compile Include="Builder\AnotherObjectWithAnotherIntPropertyDerivedBuilder.cs" />
+    <Compile Include="Builder\ObjectWithSingleStringPropertyBuilder.cs" />
     <Compile Include="Builder\TypeWithInnerCollectionBuilder.cs" />
+    <Compile Include="CompareCollectionsUsingLikenessTests.cs" />
     <Compile Include="TestData\AnotherObjectWithSingleStringProperty.cs" />
     <Compile Include="TestData\AnotherTypeWithAnotherInnerCollection.cs" />
     <Compile Include="TestData\AnotherTypeWithInnerCollection.cs" />

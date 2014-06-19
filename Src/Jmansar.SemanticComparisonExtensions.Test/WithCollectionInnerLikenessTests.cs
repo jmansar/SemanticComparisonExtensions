@@ -361,7 +361,7 @@ namespace Jmansar.SemanticComparisonExtensions.Test
         }
 
         [Test]
-        public void Should_Return_Not_Equal_When_Source_Inner_Collection_Item_Is_Null_And_Destination_Inner_Collection_Item_Is_Null()
+        public void Should_Return_Equal_When_Source_Inner_Collection_Item_Is_Null_And_Destination_Inner_Collection_Item_Is_Null()
         {
             // fixture setup
             var value = new AnotherTypeWithAnotherInnerCollectionBuilder()
