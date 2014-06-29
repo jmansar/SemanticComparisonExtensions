@@ -11,7 +11,7 @@ Method | Target | Description
 --- | --- | ---
 WithPropertyMap | Likeness  | Method configures likeness to compare specified source and destination properties to determine objects equality.
 WithCollectionSequenceEquals | Likeness | Method configures likeness to compare specified source and destination collections items using default equality.
-WithInnerLikeness | Likeness | Methods configures likeness to compare specified source and destination properties using specified inner likeness.
+[WithInnerLikeness](#innerLikenessUsage) | Likeness | Methods configures likeness to compare specified source and destination properties using specified inner likeness.
 WithInnerSpecificLikeness | Likeness | The extended version of WithInnerLikeness. Allows to specify inner likeness for derived types of properties types.
 WithCollectionInnerLikeness | Likeness | Method configures likeness to compare specified source and destination collections using inner likeness for items.
 WithCollectionInnerSpecificLikeness | Likeness | The extended version of WithCollectionInnerLikeness. Allows to specify inner likeness for derived types of item types.
@@ -66,7 +66,7 @@ public class IssuerDto
 }
 
 ```
-
+<a name="innerLikenessUsage"></a>
 With the semantic comparison extension methods, you can build the likeness object configured to compare all the objects in hierarchy memberwise using the syntax below.
 
 ```csharp
