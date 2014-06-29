@@ -10,11 +10,11 @@ SemanticComparisonExtensions is a .NET library that provides set of convenience 
 Method | Target | Description 
 --- | --- | ---
 WithPropertyMap | Likeness  | Method configures likeness to compare specified source and destination properties to determine objects equality.
-WithCollectionSequenceEquals | Likeness | Method configures likeness to compare specified source and destination collections items using default equality.
+[WithCollectionSequenceEquals](#innerCollectionEqualsUsage) | Likeness | Method configures likeness to compare specified source and destination collections items using default equality.
 [WithInnerLikeness](#innerLikenessUsage) | Likeness | Methods configures likeness to compare specified source and destination properties using specified inner likeness.
-WithInnerSpecificLikeness | Likeness | The extended version of WithInnerLikeness. Allows to specify inner likeness for derived types of properties types.
-WithCollectionInnerLikeness | Likeness | Method configures likeness to compare specified source and destination collections using inner likeness for items.
-WithCollectionInnerSpecificLikeness | Likeness | The extended version of WithCollectionInnerLikeness. Allows to specify inner likeness for derived types of item types.
+[WithInnerSpecificLikeness](#innerSpecificLikenessUsage) | Likeness | The extended version of WithInnerLikeness. Allows to specify inner likeness for derived types of properties types.
+[WithCollectionInnerLikeness](#innerLikenessUsage) | Likeness | Method configures likeness to compare specified source and destination collections using inner likeness for items.
+[WithCollectionInnerSpecificLikeness](#innerSpecificLikenessUsage) | Likeness | The extended version of WithCollectionInnerLikeness. Allows to specify inner likeness for derived types of item types.
 CompareCollectionsUsingLikeness | IEnumerable\<T\> | Method compares collection with other collection using specified likeness for items.
 
 ## Download
@@ -93,7 +93,7 @@ Naturally you can invoke those extension methods on the inner likeness if you ne
 
 
 #### Comparing inner collection items using default equality.
-
+<a name="innerCollectionEqualsUsage"></a>
 ```csharp
 public class Parent
 {
@@ -110,6 +110,7 @@ value.AsSource().OfLikeness<Root>()
 ```
 
 #### Comparing inner items using inner likeness for derived types.
+<a name="innerSpecificLikenessUsage"></a>
 Sometimes the class definition contains inner properties that are base types. By default WithInnerLikeness and WithCollectionInnerLikeness methods infer likeness generic type parameters from the property picker lambda expression. So, if you assign objects that inherit from the base class defined in the parent class definition the constructed likeness will be base class likeness, that doesn't include fields from the derived class.  
 
 To compare objects using likeness that operates on derived classes you need to specify those derived classes explicitly. There are separate versions of the extension methods for that purpose: **WithInnerSpecificLikeness**, **WithCollectionInnerSpecificLikeness**.
