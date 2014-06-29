@@ -61,6 +61,8 @@
     <Compile Include="Builder\ObjectWithAnotherIntPropertyDerivedBuilder.cs" />
     <Compile Include="Builder\AnotherObjectWithAnotherIntPropertyDerivedBuilder.cs" />
     <Compile Include="Builder\ObjectWithSingleStringPropertyBuilder.cs" />
+    <Compile Include="Builder\SimpleObject1Builder.cs" />
+    <Compile Include="Builder\SimpleObject2Builder.cs" />
     <Compile Include="Builder\TypeWithInnerCollectionBuilder.cs" />
     <Compile Include="CompareCollectionsUsingLikenessTests.cs" />
     <Compile Include="TestData\AnotherObjectWithSingleStringProperty.cs" />
@@ -68,6 +70,8 @@
     <Compile Include="TestData\AnotherTypeWithInnerCollection.cs" />
     <Compile Include="TestData\AnotherObjectWithAnotherIntPropertyDerived.cs" />
     <Compile Include="TestData\AnotherObjectWithAnotherStringPropertiesDerived.cs" />
+    <Compile Include="TestData\SimpleObject1.cs" />
+    <Compile Include="TestData\SimpleObject2.cs" />
     <Compile Include="TestData\TypeWithInnerCollection.cs" />
     <Compile Include="WithCollectionInnerLikenessTests.cs" />
     <Compile Include="WithInnerLikenessTests.cs" />
@@ -78,6 +82,7 @@
     <Compile Include="TestData\TypeWithInnerTypeProperty.cs" />
     <Compile Include="Builder\TypeWithInnerTypePropertyBuilder.cs" />
     <Compile Include="WithCollectionSequenceEqualsTests.cs" />
+    <Compile Include="WithPropertyMapTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
