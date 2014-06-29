@@ -92,8 +92,8 @@ invoice.AsSource().OfLikeness<InvoiceDto>()
 Naturally you can invoke those extension methods on the inner likeness if you need to compare multi level object graph.
 
 
-#### Comparing inner collection items using default equality.
-<a name="innerCollectionEqualsUsage"></a>
+#### <a name="innerCollectionEqualsUsage"></a>Comparing inner collection items using default equality.
+
 ```csharp
 public class Parent
 {
@@ -109,8 +109,8 @@ value.AsSource().OfLikeness<Root>()
         .ShouldEqual(other);
 ```
 
-#### Comparing inner items using inner likeness for derived types.
-<a name="innerSpecificLikenessUsage"></a>
+#### <a name="innerSpecificLikenessUsage"></a>Comparing inner items using inner likeness for derived types.
+
 Sometimes the class definition contains inner properties that are base types. By default WithInnerLikeness and WithCollectionInnerLikeness methods infer likeness generic type parameters from the property picker lambda expression. So, if you assign objects that inherit from the base class defined in the parent class definition the constructed likeness will be base class likeness, that doesn't include fields from the derived class.  
 
 To compare objects using likeness that operates on derived classes you need to specify those derived classes explicitly. There are separate versions of the extension methods for that purpose: **WithInnerSpecificLikeness**, **WithCollectionInnerSpecificLikeness**.
