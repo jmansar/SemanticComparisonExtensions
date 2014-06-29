@@ -3,8 +3,19 @@
 
 ## Overview
 
-SemanticComparisonExtensions is a .NET library that make it easier to compare object hierarchies using [SemanticComparison]. The library provides set of extensions methods for the Likeness type that can configure the likeness to operate on inner properties and collections.
+SemanticComparisonExtensions is a .NET library that provides set of convenience methods that make it easier to compare collections and object hierarchies using [SemanticComparison]. 
 
+#### Methods listing
+
+Method | Target | Description 
+--- | --- | ---
+WithPropertyMap | Likeness  | Method configures likeness to compare specified source and destination properties to determine objects equality.
+WithCollectionSequenceEquals | Likeness | Method configures likeness to compare specified source and destination collections items using default equality.
+WithInnerLikeness | Likeness | Methods configures likeness to compare specified source and destination properties using specified inner likeness.
+WithInnerSpecificLikeness | Likeness | The extended version of WithInnerLikeness. Allows to specify inner likeness for derived types of properties types.
+WithCollectionInnerLikeness | Likeness | Method configures likeness to compare specified source and destination collections using inner likeness for items.
+WithCollectionInnerSpecificLikeness | Likeness | The extended version of WithCollectionInnerLikeness. Allows to specify inner likeness for derived types of item types.
+CompareCollectionsUsingLikeness | IEnumerable\<T\> | Method compares collection with other collection using specified likeness for items.
 
 ## Download
 The nuget package is available in the nuget.org feed.
