@@ -9,7 +9,7 @@ SemanticComparisonExtensions is a .NET library that provides set of convenience 
 
 Method | Target | Description 
 --- | --- | ---
-WithPropertyMap | Likeness  | Method configures likeness to compare specified source and destination properties to determine objects equality.
+[WithPropertyMap](#withPropertyMapUsage) | Likeness  | Method configures likeness to compare specified source and destination properties to determine objects equality.
 [WithCollectionSequenceEquals](#innerCollectionEqualsUsage) | Likeness | Method configures likeness to compare specified source and destination collections items using default equality.
 [WithInnerLikeness](#innerLikenessUsage) | Likeness | Methods configures likeness to compare specified source and destination properties using specified inner likeness.
 [WithInnerSpecificLikeness](#innerSpecificLikenessUsage) | Likeness | The extended version of WithInnerLikeness. Allows to specify inner likeness for derived types of properties types.
@@ -149,6 +149,41 @@ parent.AsSource().OfLikeness<Parent>()
         .WithInnerSpecificLikeness(t => t.Inner, s => s.Inner, (Likeness<Inner, Inner> likeness) => likeness)
         .ShouldEqual(other);
 ```
+
+#### <a name="withPropertyMapUsage"></a>Setting up likeness to compare properties with different names.
+
+```csharp
+public class ProductDto
+{
+    public int ProductId { get; set; }
+    public string Name { get; set; }
+}
+
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+
+```
+
+To compare product and product dto you need to specify mapping between ProductId and Id. You could do it this way:
+```csharp
+product.AsSource().OfLikeness<ProductDto>()
+                .With(d => d.ProductId)
+                    .EqualsWhen((s, d) => s.Id == d.ProductId)
+                .ShouldEqual(productDto);
+
+```
+
+You can achieve the same effect using **WithPropertyMap** extension method:
+```csharp
+product.AsSource().OfLikeness<ProductDto>()
+                .WithPropertyMap(d => d.ProductId, s => s.Id)
+                .ShouldEqual(productDto);
+
+```
+
 
 ## Additional features
 ### Logging
