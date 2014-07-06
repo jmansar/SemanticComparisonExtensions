@@ -15,7 +15,8 @@ WithPropertyMap | Likeness  | Method configures likeness to compare specified so
 [WithInnerSpecificLikeness](#innerSpecificLikenessUsage) | Likeness | The extended version of WithInnerLikeness. Allows to specify inner likeness for derived types of properties types.
 [WithCollectionInnerLikeness](#innerLikenessUsage) | Likeness | Method configures likeness to compare specified source and destination collections using inner likeness for items.
 [WithCollectionInnerSpecificLikeness](#innerSpecificLikenessUsage) | Likeness | The extended version of WithCollectionInnerLikeness. Allows to specify inner likeness for derived types of item types.
-CompareCollectionsUsingLikeness | IEnumerable\<T\> | Method compares collection with other collection using specified likeness for items.
+[CompareCollectionsUsingLikeness](#compareCollectionsUsingLikenessUsage) | IEnumerable\<T\> | Method compares collection with other collection using specified likeness for items.
+[CompareCollectionsUsingSpecificLikeness](#compareCollectionsUsingLikenessUsage) | IEnumerable\<T\> | The extended version of CompareCollectionsUsingLikeness. Allows to specify likeness for derived types of item types.
 
 ## Download
 The nuget package is available in the nuget.org feed.
@@ -90,6 +91,17 @@ invoice.AsSource().OfLikeness<InvoiceDto>()
 
 ```
 Naturally you can invoke those extension methods on the inner likeness if you need to compare multi level object graph.
+
+#### <a name="compareCollectionsUsingLikenessUsage"></a>Comparing collections using likeness for items.
+
+```csharp
+var value = new List<InvoiceItem>();
+var other = new List<InvoiceItemDto>();
+
+var result = value.CompareCollectionsUsingLikeness(other, likeness => likeness);
+
+```
+
 
 
 #### <a name="innerCollectionEqualsUsage"></a>Comparing inner collection items using default equality.
